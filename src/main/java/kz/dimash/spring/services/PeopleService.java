@@ -2,6 +2,7 @@ package kz.dimash.spring.services;
 
 
 import kz.dimash.spring.models.Person;
+import kz.dimash.spring.repositories.ItemsRepository;
 import kz.dimash.spring.repositories.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,16 @@ import java.util.Optional;
 public class PeopleService {
     private final PeopleRepository peopleRepository;
 
+
     @Autowired
     public PeopleService(PeopleRepository peopleRepository) {
         this.peopleRepository = peopleRepository;
+
     }
 
     public List<Person> findAll() {
         return peopleRepository.findAll();
+
 
     }
 
@@ -47,4 +51,8 @@ public class PeopleService {
         peopleRepository.deleteById(id);
     }
 
+
+    public void test(){
+        System.out.println("Testing");
+    }
 }

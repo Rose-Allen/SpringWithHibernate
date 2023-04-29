@@ -1,7 +1,7 @@
 package kz.dimash.spring.controllers;
 
-import kz.dimash.spring.dao.PersonDAO;
 import kz.dimash.spring.models.Person;
+import kz.dimash.spring.services.ItemsService;
 import kz.dimash.spring.services.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,17 +17,22 @@ public class PeopleController {
 
 
     private final PeopleService peopleService;
+    private final ItemsService itemsService;
 
 
     @Autowired
-    public PeopleController(PeopleService peopleService) {
+    public PeopleController(PeopleService peopleService, ItemsService itemsService) {
         this.peopleService = peopleService;
 
+        this.itemsService = itemsService;
     }
 
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("people", peopleService.findAll());
+        itemsService.findByItemName("AirPods");
+        itemsService.findByPerson(peopleService.findAll().get(0));
+        peopleService.test();
         return "people/index";
     }
 

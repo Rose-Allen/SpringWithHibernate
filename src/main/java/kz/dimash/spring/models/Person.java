@@ -1,12 +1,14 @@
 package kz.dimash.spring.models;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
-@Table( name = "Person")
+@Table(name = "Person")
 public class Person {
     @Id
     @Column(name = "id")
@@ -26,6 +28,9 @@ public class Person {
     @Email(message = "Email should be valid")
     @Column(name = "email")
     private String email;
+
+    @OneToMany(mappedBy = "person")
+    private List<Item> item;
 
     public Person() {
 
@@ -68,5 +73,23 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Item> getItem() {
+        return item;
+    }
+
+    public void setItem(List<Item> item) {
+        this.item = item;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
